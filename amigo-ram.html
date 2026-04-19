@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Ram Panel | Campus Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background:#f1f5f9;">
+    <div class="container" style="max-width: 800px;">
+        <header>
+            <h1>Amigo Ram Console</h1>
+            <p>Manage your delivery availability and live status</p>
+        </header>
+
+        <div class="driver-dashboard">
+            <!-- Personal Profile Section -->
+            <div class="control-card" style="border-left: 4px solid var(--primary); margin-top: 0;">
+                <div class="control-title">
+                    <i data-lucide="user"></i> Personal Profile
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" id="profile-name" class="form-input" placeholder="Your Name" onchange="updateProfile()">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="text" id="profile-phone" class="form-input" placeholder="e.g. 919876543210" onchange="updateProfile()">
+                    </div>
+                </div>
+                <p id="profile-status" style="font-size: 0.75rem; color: var(--success); margin-top: 0.5rem; display: none;">Saved successfully!</p>
+            </div>
+
+            <!-- New Navigation Map -->
+            <div class="control-card" style="padding: 0; overflow: hidden; height: 300px;">
+                <div id="driver-map" style="height: 100%; width: 100%;"></div>
+            </div>
+
+            <div class="count-display">
+                <p style="font-weight:700; color:var(--text-muted);">COMPLETED DELIVERIES</p>
+                <div id="display-count" class="count-number">0</div>
+                <button class="req-btn" onclick="incrementDelivery()" style="width:auto; padding:0.5rem 1.5rem; margin-top:0.5rem; background:var(--success);">+1 Completed</button>
+            </div>
+
+            <!-- Availability Toggle -->
+            <div class="control-card">
+                <div class="control-title">
+                    <i data-lucide="power"></i> Availability
+                </div>
+                <div class="toggle-group">
+                    <button id="toggle-available" class="toggle-btn available" onclick="setAvailability(true)">Available</button>
+                    <button id="toggle-unavailable" class="toggle-btn unavailable" onclick="setAvailability(false)">Unavailable</button>
+                </div>
+            </div>
+
+            <!-- Activity Status -->
+            <div class="control-card">
+                <div class="control-title">
+                    <i data-lucide="activity"></i> Current Activity
+                </div>
+                <button id="act-idle" class="action-btn" onclick="setActivity('idle')">
+                    Waiting at Gate <i data-lucide="check-circle" size="18"></i>
+                </button>
+                <button id="act-approaching" class="action-btn" onclick="setActivity('approaching')">
+                    Approaching Main Gate <i data-lucide="check-circle" size="18"></i>
+                </button>
+                <button id="act-delivering" class="action-btn" onclick="setActivity('delivering')">
+                    Delivering to Destination <i data-lucide="check-circle" size="18"></i>
+                </button>
+                
+                <div id="dest-input-group" style="margin-top:1rem; display:none;">
+                    <label style="font-size:0.875rem; font-weight:600; display:block; margin-bottom:0.5rem;">Enter Destination</label>
+                    <input type="text" id="dest-input" class="form-input" placeholder="e.g. Block B, Room 101" oninput="updateDestination(this.value)">
+                </div>
+            </div>
+
+            <!-- Location Share -->
+            <div class="control-card">
+                <div class="control-title">
+                    <i data-lucide="map-pin"></i> Live Tracking
+                </div>
+                <button id="btn-track" class="req-btn" onclick="toggleTracking()" style="background:var(--secondary);">
+                    Enable Location Sharing
+                </button>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem; text-align:center;">
+                    Uses your device's high-accuracy GPS for real-time delivery tracking.
+                </p>
+                <div id="gps-status" class="gps-status">GPS: Inactive</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AMIGO_ID = 'ram';
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="shared.js"></script>
+    <script src="amigo-panel.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

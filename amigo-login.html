@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Login | Campus Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background: var(--bg-primary); display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="login-card" style="background: white; padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+        <h1 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Amigo Portal</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Enter your Driver ID to access your console</p>
+        
+        <form id="login-form">
+            <div class="form-group" style="text-align: left;">
+                <label style="font-weight: 600; font-size: 0.875rem;">Driver Code / ID</label>
+                <input type="text" id="driver-id" class="form-input" placeholder="e.g. AMIGO1" required style="margin-top: 0.5rem;">
+            </div>
+            
+            <button type="submit" class="req-btn" style="margin-top: 1rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                Login to Console
+                <i data-lucide="arrow-right" size="18"></i>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('login-form').onsubmit = (e) => {
+            e.preventDefault();
+            const id = document.getElementById('driver-id').value.trim().toUpperCase();
+            if (id) {
+                sessionStorage.setItem('current_amigo_id', id);
+                window.location.href = 'amigo-console.html';
+            }
+        };
+    </script>
+</body>
+</html>
